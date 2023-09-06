@@ -1,0 +1,17 @@
+Problem : https://platform.stratascratch.com/coding/10304-risky-projects?code_type=1
+
+with cte as
+(select pr.title ,pr.budget ,linkedin_employees.first_name,linkedin_employees.salary,pr.start_date ,pr.end_date from linkedin_projects pr
+join linkedin_emp_projects emp
+on pr.id= emp.project_id
+join linkedin_employees
+on emp.emp_id = linkedin_employees.id),
+final_data as 
+(select title , budget , round((end_date :: date-start_date::date)*(sum(salary)/365),0) as prorate_exp
+from cte
+group by title ,budget ,end_date ,start_date
+order by title)
+
+select * from final_data 
+where prorate_exp > budget
+order by title
