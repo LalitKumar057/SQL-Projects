@@ -1,3 +1,5 @@
+--write a query to find the dates on which non-paying customers are greater than paying customers
+
 select * from ms_user_dimension;
 select * from ms_acc_dimension;
 select * from ms_download_facts;
